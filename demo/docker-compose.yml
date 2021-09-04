@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  postgres-compose:
+    image: postgres:13.1
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "k8s"
+    ports:
+      - "5433:5432"
+    restart: always

@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5433/k8s}
+    username: ${JDBC_USER_NAME:admin}
+    password: ${JDBC_PASSWORD:admin}
