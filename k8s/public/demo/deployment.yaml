@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demo-api
+  name: demo-api
+  namespace: public-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-api
+  template:
+    metadata:
+      labels:
+        app: demo-api
+    spec:
+      containers:
+      - image: juliannapaz/appk8s:1.0
+        name: demo-api
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+            name: http
+        env:
+          - name: JDBC_URL
+            value: jdbc:postgresql://postgres.infra:5432/k8s
+          - name: JDBC_USER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: username
+          - name: JDBC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: password
