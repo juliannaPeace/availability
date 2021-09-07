@@ -1,12 +1,13 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: postgres
   namespace: infra
-spec:
-  selector:
+  labels:
     app: postgres
+spec:
+  type: NodePort
   ports:
     - port: 5432
-      targetPort: 5432
-  type: NodePort
+  selector:
+    app: postgres

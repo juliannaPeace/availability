@@ -1,12 +1,9 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: postgres
   namespace: infra
 spec:
-  selector:
-    matchLabels:
-      app: postgres
   replicas: 1
   template:
     metadata:
@@ -19,6 +16,9 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdb
